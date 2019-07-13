@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Controls.cs" t="Include" />
+          <e p="Missile.cs" t="Include" />
           <e p="Rotate.cs" t="Include" />
         </e>
       </e>
