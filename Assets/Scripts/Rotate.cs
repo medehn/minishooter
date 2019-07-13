@@ -28,7 +28,6 @@ public class Rotate : MonoBehaviour
  
             // Smoothly rotate towards the target point.
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, angVelocity * Time.deltaTime);
-            
         }
     }
 }
