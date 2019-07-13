@@ -19,10 +19,10 @@ public class TargetSpawner : MonoBehaviour
     {
         while (targetCount < 2)
         {
-            xPos = Random.Range(-4, 4);
-            zPos = Random.Range(-4, 4);
+            xPos = Random.Range(-6, 6);
+            zPos = Random.Range(-6, 6);
 
-            Instantiate(target, new Vector3(xPos, 1, zPos), Quaternion.identity);
+            Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
             yield return new WaitForSeconds(2f);
             targetCount += 1;
         }
