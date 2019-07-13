@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Rotate : MonoBehaviour
 {
-    private float speed = 0.5f;
+    private float angVelocity = 0.5f;
 
     void FixedUpdate () 
     {
@@ -27,7 +27,7 @@ public class Rotate : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
  
             // Smoothly rotate towards the target point.
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, angVelocity * Time.deltaTime);
             
         }
     }
