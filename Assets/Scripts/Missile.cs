@@ -8,6 +8,7 @@ public class Missile : MonoBehaviour
 
     void Start ()
     {
+
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
 }
