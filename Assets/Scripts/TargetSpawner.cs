@@ -11,7 +11,7 @@ public class TargetSpawner : MonoBehaviour
     private float xPos;
     private float zPos;
 
-    private bool started = false;
+    private bool started;
 
 
     void Start()
@@ -22,7 +22,7 @@ public class TargetSpawner : MonoBehaviour
     private void Update()
     {
         //after Start() coroutine and if less than 2 targets - respawn
-        if (targetCount < 2 && started == true)
+        if (targetCount < 2 && started)
         {
             targetCount++;
             StartCoroutine(Respawn());

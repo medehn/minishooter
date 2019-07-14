@@ -6,7 +6,8 @@ public class Controls : MonoBehaviour
 {
     public float moveSpeed;
 
-    public GameObject shot;
+    public GameObject fastShot;
+    public GameObject slowShot;
     public Transform shotSpawn;
     public float fireRate;
 
@@ -17,7 +18,13 @@ public class Controls : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            Instantiate(fastShot, shotSpawn.position, shotSpawn.rotation);
+        }
+        
+        else if (Input.GetButton("Fire2") && Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(slowShot, shotSpawn.position, shotSpawn.rotation);
         }
         
         //movement of lower part with simple horizontal and vertical input, not very "tankish"
