@@ -9,15 +9,15 @@ public class Rotate : MonoBehaviour
 
     void FixedUpdate () 
     {
-        // Generate a plane that intersects the transform's position with an upwards normal.
+        //plane for position
         Plane playerPlane = new Plane(Vector3.up, transform.position);
  
-        // Generate a ray from the cursor position
+        //ray starting at mouse pos
         Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
  
-        // Determine the point where the cursor ray intersects the plane.
+        //collision point for ray and plane
         float hitdist = 0.0f;
-        // If the ray is parallel to the plane, Raycast will return false.
+        //if the ray is parallel to the plane, Raycast will return false.
         if (playerPlane.Raycast (ray, out hitdist)) 
         {
             // Get the point along the ray that hits the calculated distance.

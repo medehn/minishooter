@@ -13,6 +13,7 @@ public class TargetSpawner : MonoBehaviour
 
     private bool started;
 
+    //TODO: dont spawn targets in walls
 
     void Start()
     {
