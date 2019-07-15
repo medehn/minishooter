@@ -6,6 +6,7 @@ public class TargetSpawner : MonoBehaviour
 {
     public GameObject target;
     public static int targetCount;
+
     private float xPos;
     private float zPos;
 
@@ -36,6 +37,17 @@ public class TargetSpawner : MonoBehaviour
             xPos = Random.Range(-6, 6);
             zPos = Random.Range(-6, 6);
 
+            //TODO: dont spawn in walls or target or player!
+//            float radius = target.GetComponent<SphereCollider>().radius;
+//            
+//            if (Physics.CheckSphere(new Vector3(xPos, 0.5f, zPos), radius))
+//            {
+//                xPos = Random.Range(-6, 6);
+//                zPos = Random.Range(-6, 6);
+//                
+//            }
+
+            //TODO: FX for spawning
             Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
             yield return new WaitForSeconds(spawnDelay);
             started = true;

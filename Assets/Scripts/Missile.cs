@@ -4,6 +4,7 @@ public class Missile : MonoBehaviour
 {
     public float speed;
 
+
     void Start()
     {
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
@@ -15,6 +16,7 @@ public class Missile : MonoBehaviour
         if (other.gameObject.CompareTag("target"))
         {
             Destroy(other.gameObject, 0.1f);
+            //TODO: FX for destruction
             Destroy(gameObject);
 
             TargetSpawner.targetCount--;
