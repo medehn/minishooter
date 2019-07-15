@@ -1,30 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-//TODO: clean movement, if no target - shot stands in air
 public class AimedShot : MonoBehaviour
 {
-    public float speed;
-    public float force;
+    public float rotSpeed;
 
-    private Transform target;
     private Rigidbody _rigidbody;
-    private GameObject _gameObject;
-
-    //TODO: clean curving
+    private GameObject _target;
 
     void Start()
     {
-        _gameObject = GameObject.Find("Target(Clone)");
-        
+        _target = GameObject.Find("Target(Clone)");
         _rigidbody = GetComponent<Rigidbody>();
-
-        StartCoroutine(MissileDestruct());
-
-        
     }
 
     private void Update()
@@ -34,66 +20,26 @@ public class AimedShot : MonoBehaviour
 
     void FlyTowards()
     {
-        if (_gameObject != null)
+        if (_target != null)
         {
-            float startTime = Time.time;
-
             Vector3 start = transform.position;
-            Vector3 end = _gameObject.transform.position;
-            
-            //without curving:
-            //transform.position = Vector3.MoveTowards(start, end, Time.deltaTime * speed);
+            Vector3 end = _target.transform.position;
+            Vector3 dir = end - start;
 
-            //with curve but not smooth
-            if (start != end)
-            {
-                //float newPercentageBetweenVectors = (Time.time - startTime) * speed;
-               
-                transform.position = Vector3.Lerp(start, end, 0.05f);
-            }
+            //give the missile movement
+            _rigidbody.velocity = transform.forward * rotSpeed;
 
-            _rigidbody.velocity = transform.forward * speed;
+            //get the rotation that is needed to fly towards target
+            Quaternion targetRot = Quaternion.LookRotation(dir);
 
-//            other tries
-//            _rigidbody.velocity = transform.forward * speed;
-//            target = _gameObject.transform;
-//            
-//                //find targets position
-//
-//                Vector3 playerPos = new Vector3(target.transform.position.x, 0,
-//                    target.transform.position.z).normalized;
-//
-//                transform.forward = Vector3.Lerp(start, playerPos,
-//                    Time.fixedDeltaTime * .5f );
-//
-//                _rigidbody.velocity = transform.forward * speed;
-//            }
+            //set rotation to missile
+            _rigidbody.MoveRotation((Quaternion.RotateTowards(transform.rotation, targetRot, 2)));
         }
         else
         {
-            _rigidbody.velocity = transform.forward * speed;
-        }
-        
-
-    }
-    
-    //Destroy missile after some seconds 
-    IEnumerator MissileDestruct()
-    {
-        yield return new WaitForSeconds(10);
-        Destroy(gameObject);
-    }
-
-
-    //Destroy target and missile on impact
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("target"))
-        {
-            Destroy(other.gameObject, 0.1f);
-            Destroy(gameObject);
-
-            TargetSpawner.targetCount--;
+            //TODO: check if new target popped up, if so change direction towards new
+            //no target? fly straight
+            _rigidbody.velocity = transform.forward * rotSpeed;
         }
     }
 }

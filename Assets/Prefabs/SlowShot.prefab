@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1250357265000883259}
   - component: {fileID: -2656401773965864794}
   - component: {fileID: 5208907693558117267}
+  - component: {fileID: 6763936884586189621}
   m_Layer: 0
   m_Name: SlowShot
   m_TagString: Untagged
@@ -121,5 +122,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dfce14b6eb9240bcea56542de19a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotSpeed: 2
+--- !u!114 &6763936884586189621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247391258497272780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b84e1e42fef3540832ba1fa4f3134e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   speed: 2
-  force: 0.2

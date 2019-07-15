@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -29,7 +27,7 @@ public class TargetSpawner : MonoBehaviour
             StartCoroutine(Respawn());
         }
     }
-    
+
     //initial two targets are spawned in the Start()
     IEnumerator TargetDrop(int spawnDelay)
     {
@@ -37,7 +35,7 @@ public class TargetSpawner : MonoBehaviour
         {
             xPos = Random.Range(-6, 6);
             zPos = Random.Range(-6, 6);
-            
+
             Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
             yield return new WaitForSeconds(spawnDelay);
             started = true;
@@ -45,21 +43,15 @@ public class TargetSpawner : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
-    
+
     //Respawning of targets to create new target when old ones get destroyed
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2);
-        
+
         xPos = Random.Range(-6, 6);
         zPos = Random.Range(-6, 6);
 
         Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
     }
-    
-    
-
-
-
 }
-

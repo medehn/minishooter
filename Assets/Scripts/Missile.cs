@@ -1,28 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
     public float speed;
-    
-    
 
-    void Start ()
+    void Start()
     {
         GetComponent<Rigidbody>().velocity = transform.forward * speed;
-        StartCoroutine(MissileDestruct());
-        
-    }
-
-    //Destroy missile after some seconds 
-    IEnumerator MissileDestruct(){
-
-        yield return new WaitForSeconds (3);
-        Destroy (gameObject);
     }
 
     //Destroy target and missile on impact
@@ -35,8 +19,10 @@ public class Missile : MonoBehaviour
 
             TargetSpawner.targetCount--;
         }
+
+        else if (other.gameObject.CompareTag(("wall")))
+        {
+            Destroy(gameObject);
+        }
     }
-    
-
 }
-
