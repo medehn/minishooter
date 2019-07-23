@@ -5,63 +5,57 @@ using Random = UnityEngine.Random;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject target;
-    public static int TargetCount;
+    public static int _targetCount = 0;
     private float _xPos;
     private float _zPos;
-    private bool _started;
+    public int maxSpawnAttemptsPerObstacle = 10;
 
-    //TODO: dont spawn targets in walls
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(TargetDrop(2));
-    }
-
-    private void Update()
-    {
-        //after Start() coroutine and if less than 2 targets - respawn
-        if (TargetCount < 2 && _started)
-        {
-            TargetCount++;
-            StartCoroutine(Respawn());
-        }
-    }
-
-    //initial two targets are spawned in the Start()
-    private IEnumerator TargetDrop(int spawnDelay)
-    {
-        while (TargetCount < 2)
-        {
-            _xPos = Random.Range(-6, 6);
-            _zPos = Random.Range(-6, 6);
-
-            //TODO: dont spawn in walls or target or player!
-//            float radius = target.GetComponent<SphereCollider>().radius;
-//            
-//            if (Physics.CheckSphere(new Vector3(xPos, 0.5f, zPos), radius))
-//            {
-//                xPos = Random.Range(-6, 6);
-//                zPos = Random.Range(-6, 6);
-//                
-//            }
-
-            Instantiate(target, new Vector3(_xPos, 0.5f, _zPos), Quaternion.identity);
-            yield return new WaitForSeconds(spawnDelay);
-            _started = true;
-            TargetCount++;
-            yield return new WaitForSeconds(1);
-        }
+        InvokeRepeating("Respawn", 0, Random.Range(2,3));
     }
 
     //Respawning of targets to create new target when old ones get destroyed
-    private IEnumerator Respawn()
+    private void Respawn()
     {
-        float rn = Random.Range(2.0f, 3.0f);
-        yield return new WaitForSeconds(rn);
+        if (_targetCount < 2)
+        {
+            Vector3 position = Vector3.zero;
+            bool validPos = false;
 
-        _xPos = Random.Range(-6, 6);
-        _zPos = Random.Range(-6, 6);
+            int tries = 0;
 
-        Instantiate(target, new Vector3(_xPos, 0.5f, _zPos), Quaternion.identity);
+            while (!validPos && tries < maxSpawnAttemptsPerObstacle)
+            {
+                tries++;
+                position = new Vector3(Random.Range(-8.0f, 8.0f), 0, Random.Range(-8.0f, 8.0f));
+                validPos = true;
+
+                float radius = 3f;
+
+                Collider[] colliders = Physics.OverlapSphere(position, radius);
+
+                Debug.Log(colliders.Length);
+                foreach (Collider col in colliders)
+                {
+                    // If this collider is tagged "Obstacle"
+                    if (col.tag == "obstacle")
+                    {
+                        // Then this position is not a valid spawn position
+                        validPos = false;
+                    }
+                }
+            }
+
+            // If we exited the loop with a valid position
+            if (validPos && _targetCount < 2)
+            {
+                // Spawn the obstacle here
+                Instantiate(target, position + target.transform.position, Quaternion.identity);
+                _targetCount++;
+                //yield return new WaitForSeconds(Random.Range(2,3));
+            }
+        }
     }
 }

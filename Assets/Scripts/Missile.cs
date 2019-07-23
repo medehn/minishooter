@@ -19,10 +19,10 @@ public class Missile : MonoBehaviour
             Destroy(other.gameObject, 0.1f);
             Destroy(gameObject);
 
-            TargetSpawner.TargetCount--;
+            TargetSpawner._targetCount--;
         }
 
-        else if (other.gameObject.CompareTag(("wall")))
+        else if (other.gameObject.CompareTag(("wall")) || other.gameObject.CompareTag("obstacle"))
         {
             Destroy(gameObject);
         }
