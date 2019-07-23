@@ -25,7 +25,7 @@ public class Controls : MonoBehaviour
             Instantiate(slowShot, shotSpawn.position, shotSpawn.rotation);
         }
 
-        //movement of lower part with simple horizontal and vertical input, not very "tankish"
+        //movement of lower part with simple horizontal and vertical input, not very "tankish" yet
         transform.Translate(moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime, 0.0f,
             moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime);
     }

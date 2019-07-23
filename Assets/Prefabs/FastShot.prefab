@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  target: {fileID: 4461907123256135942, guid: ce4bf54b5d9479548b016fd0ef38c328, type: 3}
+  effect: {fileID: 4983121285734635648, guid: 66fbc42c73e737642a36b9af3596879d, type: 3}
 --- !u!33 &6059500450417354075
 MeshFilter:
   m_ObjectHideFlags: 0

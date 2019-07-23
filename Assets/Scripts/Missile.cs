@@ -3,7 +3,7 @@
 public class Missile : MonoBehaviour
 {
     public float speed;
-
+    public GameObject effect;
 
     void Start()
     {
@@ -15,11 +15,11 @@ public class Missile : MonoBehaviour
     {
         if (other.gameObject.CompareTag("target"))
         {
+            Instantiate(effect, transform.position, transform.rotation);
             Destroy(other.gameObject, 0.1f);
-            //TODO: FX for destruction
             Destroy(gameObject);
 
-            TargetSpawner.targetCount--;
+            TargetSpawner.TargetCount--;
         }
 
         else if (other.gameObject.CompareTag(("wall")))

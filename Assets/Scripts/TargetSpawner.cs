@@ -5,12 +5,10 @@ using Random = UnityEngine.Random;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject target;
-    public static int targetCount;
-
-    private float xPos;
-    private float zPos;
-
-    private bool started;
+    public static int TargetCount;
+    private float _xPos;
+    private float _zPos;
+    private bool _started;
 
     //TODO: dont spawn targets in walls
 
@@ -22,20 +20,20 @@ public class TargetSpawner : MonoBehaviour
     private void Update()
     {
         //after Start() coroutine and if less than 2 targets - respawn
-        if (targetCount < 2 && started)
+        if (TargetCount < 2 && _started)
         {
-            targetCount++;
+            TargetCount++;
             StartCoroutine(Respawn());
         }
     }
 
     //initial two targets are spawned in the Start()
-    IEnumerator TargetDrop(int spawnDelay)
+    private IEnumerator TargetDrop(int spawnDelay)
     {
-        while (targetCount < 2)
+        while (TargetCount < 2)
         {
-            xPos = Random.Range(-6, 6);
-            zPos = Random.Range(-6, 6);
+            _xPos = Random.Range(-6, 6);
+            _zPos = Random.Range(-6, 6);
 
             //TODO: dont spawn in walls or target or player!
 //            float radius = target.GetComponent<SphereCollider>().radius;
@@ -47,23 +45,23 @@ public class TargetSpawner : MonoBehaviour
 //                
 //            }
 
-            //TODO: FX for spawning
-            Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
+            Instantiate(target, new Vector3(_xPos, 0.5f, _zPos), Quaternion.identity);
             yield return new WaitForSeconds(spawnDelay);
-            started = true;
-            targetCount++;
+            _started = true;
+            TargetCount++;
             yield return new WaitForSeconds(1);
         }
     }
 
     //Respawning of targets to create new target when old ones get destroyed
-    IEnumerator Respawn()
+    private IEnumerator Respawn()
     {
-        yield return new WaitForSeconds(2);
+        float rn = Random.Range(2.0f, 3.0f);
+        yield return new WaitForSeconds(rn);
 
-        xPos = Random.Range(-6, 6);
-        zPos = Random.Range(-6, 6);
+        _xPos = Random.Range(-6, 6);
+        _zPos = Random.Range(-6, 6);
 
-        Instantiate(target, new Vector3(xPos, 0.5f, zPos), Quaternion.identity);
+        Instantiate(target, new Vector3(_xPos, 0.5f, _zPos), Quaternion.identity);
     }
 }

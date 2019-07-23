@@ -37,7 +37,6 @@ public class AimedShot : MonoBehaviour
         }
         else
         {
-            //TODO: check if new target popped up, if so change direction towards new
             //no target? fly straight
             _rigidbody.velocity = transform.forward * rotSpeed;
         }
