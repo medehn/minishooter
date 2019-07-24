@@ -9,6 +9,7 @@
         <e p="Scripts" t="Include">
           <e p="AimedShot.cs" t="Include" />
           <e p="Controls.cs" t="Include" />
+          <e p="GameControls.cs" t="Include" />
           <e p="Missile.cs" t="Include" />
           <e p="Rotate.cs" t="Include" />
           <e p="TargetSpawner.cs" t="Include" />
