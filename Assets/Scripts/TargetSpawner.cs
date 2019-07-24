@@ -5,21 +5,20 @@ using Random = UnityEngine.Random;
 public class TargetSpawner : MonoBehaviour
 {
     public GameObject target;
-    public static int _targetCount = 0;
+    public static int TargetCount = 0;
     private float _xPos;
     private float _zPos;
-    public int maxSpawnAttemptsPerObstacle = 10;
-
+    public int maxSpawnAttemptsPerObstacle = 20;
 
     private void Start()
     {
-        InvokeRepeating("Respawn", 0, Random.Range(2,3));
+        InvokeRepeating("Respawn", 0, Random.Range(2, 3));
     }
 
     //Respawning of targets to create new target when old ones get destroyed
     private void Respawn()
     {
-        if (_targetCount < 2)
+        if (TargetCount < 2)
         {
             Vector3 position = Vector3.zero;
             bool validPos = false;
@@ -29,7 +28,7 @@ public class TargetSpawner : MonoBehaviour
             while (!validPos && tries < maxSpawnAttemptsPerObstacle)
             {
                 tries++;
-                position = new Vector3(Random.Range(-8.0f, 8.0f), 0, Random.Range(-8.0f, 8.0f));
+                position = new Vector3(Random.Range(-8.0f, 8.0f), 0, Random.Range(8.0f, -8.0f));
                 validPos = true;
 
                 float radius = 3f;
@@ -40,7 +39,7 @@ public class TargetSpawner : MonoBehaviour
                 foreach (Collider col in colliders)
                 {
                     // If this collider is tagged "Obstacle"
-                    if (col.tag == "obstacle")
+                    if (col.CompareTag("obstacle"))
                     {
                         // Then this position is not a valid spawn position
                         validPos = false;
@@ -49,11 +48,11 @@ public class TargetSpawner : MonoBehaviour
             }
 
             // If we exited the loop with a valid position
-            if (validPos && _targetCount < 2)
+            if (validPos && TargetCount < 2)
             {
                 // Spawn the obstacle here
                 Instantiate(target, position + target.transform.position, Quaternion.identity);
-                _targetCount++;
+                TargetCount++;
                 //yield return new WaitForSeconds(Random.Range(2,3));
             }
         }

@@ -9,19 +9,19 @@ public class Controls : MonoBehaviour
     public Transform shotSpawn;
     public float fireRate;
 
-    private float nextFire;
+    private float _nextFire;
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire)
+        if (Input.GetButton("Fire1") && Time.time > _nextFire)
         {
-            nextFire = Time.time + fireRate;
+            _nextFire = Time.time + fireRate;
             Instantiate(fastShot, shotSpawn.position, shotSpawn.rotation);
         }
 
-        else if (Input.GetButton("Fire2") && Time.time > nextFire)
+        else if (Input.GetButton("Fire2") && Time.time > _nextFire)
         {
-            nextFire = Time.time + fireRate;
+            _nextFire = Time.time + fireRate;
             Instantiate(slowShot, shotSpawn.position, shotSpawn.rotation);
         }
 

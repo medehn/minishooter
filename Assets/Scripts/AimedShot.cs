@@ -18,6 +18,7 @@ public class AimedShot : MonoBehaviour
         FlyTowards();
     }
 
+    //homing missile script to fly to target automatically
     void FlyTowards()
     {
         if (_target != null)
